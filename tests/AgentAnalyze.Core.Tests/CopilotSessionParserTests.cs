@@ -85,7 +85,8 @@ public class TokenAttributorTests
             AuthoritativeTokens: [],
             UnmatchedToolStarts: parsed.UnmatchedToolStarts,
             UnmatchedToolCompletes: parsed.UnmatchedToolCompletes,
-            ProcessLogCoverage: new Domain.ProcessLogCoverage(0, parsed.Turns.Count, []));
+            ProcessLogCoverage: new Domain.ProcessLogCoverage(0, parsed.Turns.Count, []),
+            DotNetOutputAnalysis: Domain.DotNetOutputAnalysis.Empty);
 
         var attribution = TokenAttributor.Compute(analysis);
 
@@ -105,7 +106,7 @@ public class TokenAttributorTests
         var analysis = new Domain.SessionAnalysis(
             parsed.Metadata, parsed.Turns, parsed.SubAgents, parsed.DotNetCommands,
             parsed.BashInvocations, [], parsed.UnmatchedToolStarts, parsed.UnmatchedToolCompletes,
-            new Domain.ProcessLogCoverage(0, parsed.Turns.Count, []));
+            new Domain.ProcessLogCoverage(0, parsed.Turns.Count, []), Domain.DotNetOutputAnalysis.Empty);
         var attribution = TokenAttributor.Compute(analysis);
         var md = MarkdownReporter.Render(analysis, attribution);
 
@@ -127,7 +128,8 @@ public class TokenAttributorTests
         var parsed = CopilotSessionParser.ParseEventsFile(FixturePath("synthetic-events.jsonl"), null);
         var analysis = new Domain.SessionAnalysis(
             parsed.Metadata, parsed.Turns, parsed.SubAgents, parsed.DotNetCommands,
-            parsed.BashInvocations, [], 0, 0, new Domain.ProcessLogCoverage(0, parsed.Turns.Count, []));
+            parsed.BashInvocations, [], 0, 0, new Domain.ProcessLogCoverage(0, parsed.Turns.Count, []),
+            Domain.DotNetOutputAnalysis.Empty);
         var name = MarkdownReporter.FileNameFor(analysis);
         Assert.StartsWith("report-20260503-211103-test-ses", name);
         Assert.EndsWith(".md", name);
