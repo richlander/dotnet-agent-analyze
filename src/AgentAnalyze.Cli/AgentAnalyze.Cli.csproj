@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>AgentAnalyze.Cli</RootNamespace>
     <AssemblyName>agent-analyze</AssemblyName>
+    <Rollforward>LatestMajor</Rollforward>
   </PropertyGroup>
 
   <ItemGroup>
