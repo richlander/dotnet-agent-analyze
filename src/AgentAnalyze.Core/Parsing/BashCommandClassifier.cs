@@ -60,8 +60,11 @@ public static class BashCommandClassifier
     {
         var lower = NormalizeExecutable(token);
 
-        // Family lookup (longest-match for prefixed tools like dotnet-trace).
-        if (lower == "dotnet" || lower.StartsWith("dotnet-", StringComparison.Ordinal))
+        // Family lookup. Note: only the bare `dotnet` driver counts as DotNet family;
+        // standalone tools like `dotnet-inspect` or `dotnet-trace` are independent
+        // executables (the kernel resolves them via PATH, not via the dotnet host) and
+        // are classified by the normal lookup chain (typically Other).
+        if (lower == "dotnet")
             return new BashClassification(BashFamily.DotNet, lower);
 
         if (s_packageManager.Contains(lower))

@@ -6,11 +6,11 @@ public class DotNetCommandExtractorTests
 {
     [Theory]
     [InlineData("dotnet build", "build")]
+    [InlineData("dotnet inspect search Foo", "inspect")]
     [InlineData("dotnet test --logger trx", "test")]
     [InlineData("cd src && dotnet build", "build")]
     [InlineData("dotnet run --project foo -- --bar", "run")]
     [InlineData("dotnet --info", "--info")]
-    [InlineData("dotnet-trace collect", "dotnet-trace")]
     [InlineData("dotnet", "dotnet")]
     public void ExtractsSubcommand(string input, string expected)
     {
@@ -24,6 +24,12 @@ public class DotNetCommandExtractorTests
     [InlineData("git status")]
     [InlineData("echo hello world")]
     [InlineData("")]
+    // Standalone dotnet-* tools resolve via PATH and are not the dotnet driver — they
+    // must NOT be extracted as dotnet invocations.
+    [InlineData("dotnet-trace collect")]
+    [InlineData("dotnet-inspect search Foo")]
+    [InlineData("/usr/local/bin/dotnet-inspect search Foo")]
+    [InlineData("cd src && dotnet-trace collect")]
     public void IgnoresNonDotnet(string input)
     {
         Assert.Empty(DotNetCommandExtractor.ExtractAll(input));

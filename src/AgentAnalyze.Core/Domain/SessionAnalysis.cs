@@ -71,7 +71,7 @@ public sealed record TurnTokens(
 /// A normalized .NET CLI invocation extracted from a bash tool call.
 /// </summary>
 /// <param name="TurnId">Turn the parent bash call belongs to.</param>
-/// <param name="Command">Subcommand keyword (e.g. <c>build</c>, <c>test</c>) or the full executable name for <c>dotnet-foo</c> tools.</param>
+/// <param name="Command">Subcommand keyword (e.g. <c>build</c>, <c>test</c>, <c>inspect</c>) of the bare <c>dotnet</c> driver. Standalone tools like <c>dotnet-trace</c> are not represented here.</param>
 /// <param name="FullCommand">The dotnet portion of the bash command, used for diagnostics only — not included in reports.</param>
 /// <param name="ParentBashCallId">Tool call id of the bash call that ran this command.</param>
 /// <param name="ParentBashResultChars">Result-char count of the parent bash call. When the bash chain runs multiple dotnet subcommands, the same value is repeated on each — see <see cref="IsChained"/>.</param>
@@ -102,7 +102,7 @@ public sealed record BashInvocation(
 public enum BashFamily
 {
     Unknown = 0,
-    /// <summary>The .NET CLI: <c>dotnet</c>, <c>dotnet-trace</c>, etc.</summary>
+    /// <summary>The .NET CLI driver: bare <c>dotnet</c> (e.g. <c>dotnet build</c>, <c>dotnet inspect</c>). Standalone tools like <c>dotnet-trace</c> resolve via PATH and are classified as <see cref="Other"/>.</summary>
     DotNet,
     /// <summary>npm, pip, cargo, brew, apt, etc.</summary>
     PackageManager,

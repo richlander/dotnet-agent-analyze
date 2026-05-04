@@ -10,8 +10,9 @@ public static partial class DotNetCommandExtractor
 {
     /// <summary>
     /// Returns each dotnet invocation found in <paramref name="command"/> as a tuple
-    /// (subcommand, full text). Subcommand is lowercase. For <c>dotnet-foo</c> tools the
-    /// subcommand is the full executable name ("dotnet-trace").
+    /// (subcommand, full text). Subcommand is lowercase. Only invocations of the bare
+    /// <c>dotnet</c> driver are returned; standalone tools like <c>dotnet-inspect</c> or
+    /// <c>dotnet-trace</c> are independent executables and are NOT extracted here.
     /// </summary>
     public static IEnumerable<(string Command, string FullCommand)> ExtractAll(string? command)
     {
@@ -33,11 +34,7 @@ public static partial class DotNetCommandExtractor
                 executable = executable[..^4];
 
             string sub;
-            if (executable.StartsWith("dotnet-", StringComparison.Ordinal))
-            {
-                sub = executable; // dotnet-trace, dotnet-inspect, etc.
-            }
-            else if (parts.Length < 2)
+            if (parts.Length < 2)
             {
                 sub = "dotnet"; // bare invocation
             }
@@ -52,9 +49,10 @@ public static partial class DotNetCommandExtractor
         }
     }
 
-    // (^ or && / || / ; / |) optional path prefix, then dotnet or dotnet-*, optional .exe,
-    // then the rest until the next separator.
-    [GeneratedRegex(@"(?:^|&&|\|\||;|\|)\s*(?:[\w/\\.-]*?)?\bdotnet(?:-[\w]+)?(?:\.exe)?(?:\s+[^&|;]+|\s*$)",
+    // (^ or && / || / ; / |) optional path prefix, then bare `dotnet` (NOT dotnet-foo),
+    // optional .exe, then the rest until the next separator. The negative lookahead after
+    // `dotnet` ensures `dotnet-inspect` etc. don't match — they are independent executables.
+    [GeneratedRegex(@"(?:^|&&|\|\||;|\|)\s*(?:[\w/\\.]*?)?\bdotnet(?![\w-])(?:\.exe)?(?:\s+[^&|;]+|\s*$)",
         RegexOptions.IgnoreCase)]
     private static partial Regex DotNetRegex();
 }
