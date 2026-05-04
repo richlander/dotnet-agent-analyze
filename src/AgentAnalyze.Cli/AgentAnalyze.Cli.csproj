@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>AgentAnalyze.Cli</RootNamespace>
+    <AssemblyName>agent-analyze</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../AgentAnalyze.Core/AgentAnalyze.Core.csproj" />
+  </ItemGroup>
+
+</Project>

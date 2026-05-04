@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AgentAnalyze.Core/AgentAnalyze.Core.csproj" />
+    <Project Path="src/AgentAnalyze.Cli/AgentAnalyze.Cli.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AgentAnalyze.Core.Tests/AgentAnalyze.Core.Tests.csproj" />
+  </Folder>
+</Solution>

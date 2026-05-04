@@ -1,0 +1,18 @@
+{"type":"session.start","data":{"sessionId":"test-session-id-aaaaaaaa","copilotVersion":"1.0.40","startTime":"2026-05-03T21:11:03.347Z","context":{"cwd":"/test"}},"id":"e1","timestamp":"2026-05-03T21:11:03.366Z"}
+{"type":"session.model_change","data":{"newModel":"claude-test-model"},"id":"e2","timestamp":"2026-05-03T21:11:04.000Z"}
+{"type":"user.message","data":{"content":"Please look at things and run dotnet build."},"id":"u1","timestamp":"2026-05-03T21:11:05.000Z"}
+{"type":"assistant.turn_start","data":{"turnId":"0","interactionId":"i0"},"id":"ts0","timestamp":"2026-05-03T21:11:06.000Z"}
+{"type":"assistant.message","data":{"messageId":"m0","turnId":"0","requestId":"req-0","content":"","outputTokens":50,"toolRequests":[{"toolCallId":"t1","name":"bash","arguments":{"command":"dotnet build"}},{"toolCallId":"t2","name":"view","arguments":{"path":"/file.cs"}}]},"id":"a0","timestamp":"2026-05-03T21:11:07.000Z"}
+{"type":"tool.execution_start","data":{"toolCallId":"t1","toolName":"bash","turnId":"0","arguments":{"command":"dotnet build"}},"id":"ts1","timestamp":"2026-05-03T21:11:08.000Z"}
+{"type":"tool.execution_complete","data":{"toolCallId":"t1","success":true,"result":{"content":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","detailedContent":"long detailed"}},"id":"tc1","timestamp":"2026-05-03T21:11:09.000Z"}
+{"type":"tool.execution_start","data":{"toolCallId":"t2","toolName":"view","turnId":"0","arguments":{"path":"/file.cs"}},"id":"ts2","timestamp":"2026-05-03T21:11:10.000Z"}
+{"type":"tool.execution_complete","data":{"toolCallId":"t2","success":true,"result":{"content":"BBBB","detailedContent":"BBBB"}},"id":"tc2","timestamp":"2026-05-03T21:11:11.000Z"}
+{"type":"assistant.turn_end","data":{"turnId":"0"},"id":"te0","timestamp":"2026-05-03T21:11:12.000Z"}
+{"type":"assistant.turn_start","data":{"turnId":"1","interactionId":"i1"},"id":"ts1b","timestamp":"2026-05-03T21:11:13.000Z"}
+{"type":"assistant.message","data":{"messageId":"m1","turnId":"1","requestId":"req-1","content":"done","outputTokens":10,"toolRequests":[{"toolCallId":"t3","name":"task","arguments":{"prompt":"explore"}}]},"id":"a1","timestamp":"2026-05-03T21:11:14.000Z"}
+{"type":"tool.execution_start","data":{"toolCallId":"t3","toolName":"task","turnId":"1","arguments":{"prompt":"explore"}},"id":"ts3","timestamp":"2026-05-03T21:11:15.000Z"}
+{"type":"assistant.message","data":{"messageId":"sub1","turnId":null,"requestId":"sub-r-1","content":"sub","outputTokens":20,"parentToolCallId":"t3","toolRequests":[{"toolCallId":"t3a","name":"grep","arguments":{}},{"toolCallId":"t3b","name":"view","arguments":{}}]},"id":"sa1","timestamp":"2026-05-03T21:11:16.000Z"}
+{"type":"tool.execution_start","data":{"toolCallId":"t3a","toolName":"grep","turnId":null,"arguments":{}},"id":"sts3a","timestamp":"2026-05-03T21:11:17.000Z"}
+{"type":"tool.execution_complete","data":{"toolCallId":"t3a","success":true,"result":{"content":"sub-grep-result","detailedContent":""}},"id":"stc3a","timestamp":"2026-05-03T21:11:18.000Z"}
+{"type":"tool.execution_complete","data":{"toolCallId":"t3","success":true,"result":{"content":"CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC","detailedContent":""}},"id":"tc3","timestamp":"2026-05-03T21:11:19.000Z"}
+{"type":"assistant.turn_end","data":{"turnId":"1"},"id":"te1","timestamp":"2026-05-03T21:11:20.000Z"}
