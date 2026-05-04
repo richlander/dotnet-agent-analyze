@@ -386,10 +386,10 @@ public static class MarkdownReporter
             return;
         }
 
-        sb.AppendLine($"Top {b.TopRepeatedLines.Count} repeating line(s) (ranked by token savings):");
+        sb.AppendLine($"Top {b.TopRepeatedLines.Count} repeating line(s) (ranked by total savings):");
         sb.AppendLine();
         WriteTable(sb,
-            ["Rank", "Runs", "Occurrences", "Tokens", "Savings", "Line"],
+            ["Rank", "Runs", "Occurrences", "Total tokens", "Total savings", "Line"],
             b.TopRepeatedLines.Select((r, i) =>
             {
                 var recurring = TokenEstimate.FromChars((long)r.TotalOccurrences * r.Length);
@@ -404,6 +404,10 @@ public static class MarkdownReporter
                     "`" + Truncate(r.Normalized, 120).Replace("`", "\\`") + "`",
                 };
             }));
+        sb.AppendLine();
+        sb.AppendLine("> _`Total tokens` and `Total savings` are summed across every run in this bucket. " +
+                      "`Total savings` is what would be saved if the line were ingested once across the session " +
+                      "(= `Total tokens` − one retained copy)._");
         sb.AppendLine();
     }
 
