@@ -386,10 +386,10 @@ public static class MarkdownReporter
             return;
         }
 
-        sb.AppendLine($"Top {b.TopRepeatedLines.Count} repeating line(s) (ranked by suppressible cost):");
+        sb.AppendLine($"Top {b.TopRepeatedLines.Count} repeating line(s) (ranked by token savings):");
         sb.AppendLine();
         WriteTable(sb,
-            ["Rank", "Support", "Occurrences", "Recurring", "Suppressible", "Line"],
+            ["Rank", "Runs", "Occurrences", "Tokens", "Savings", "Line"],
             b.TopRepeatedLines.Select((r, i) =>
             {
                 var recurring = TokenEstimate.FromChars((long)r.TotalOccurrences * r.Length);
